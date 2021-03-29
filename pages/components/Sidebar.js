@@ -29,7 +29,7 @@ function Sidebar() {
       !isChatExists(input) &&
       input !== user.email
     ) {
-      //we need to add the chat into the DB 'chats' collection
+      //we need to add the chat into the DB 'chats' collection if it doesn't exist and validate it'
       db.collection("chats").add({
         users: [user.email, input],
       });
