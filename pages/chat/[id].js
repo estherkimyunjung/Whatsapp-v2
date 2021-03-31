@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Head from "next/head";
-import Sidebar from "../components/Sidebar";
-import ChatScreen from "../components/ChatScreen";
+import Sidebar from "../../components/Sidebar";
+import ChatScreen from "../../components/ChatScreen";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../firebase";
 import getRecipientEmail from "../../utils/getRecipientEmail";
@@ -42,7 +42,7 @@ export async function getServerSideProps(context) {
       timestamp: messages.timestamp.toDate().getTime(),
     }));
 
-  //PREP the Chats
+  //PREP the chats
 
   const chatRes = await ref.get();
   const chat = {
@@ -70,7 +70,7 @@ const ChatContainer = styled.div`
   height: 100vh;
 
   ::-webkit-scrollbar {
-    display: flex;
+    display: none;
   }
   -ms-overflow-style: none; // IE and Edge
   scrollbar-width: none; // Firefox

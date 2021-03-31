@@ -6,7 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import * as EmailValidator from "email-validator";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../firebase";
 import Chat from "./Chat";
 
 function Sidebar() {
@@ -74,7 +74,21 @@ function Sidebar() {
 
 export default Sidebar;
 
-const Container = styled.div``;
+const Container = styled.div`
+  flex: 0.45;
+  border-right: 1px solid whitesmoke;
+  height: 100vh;
+  min-width: 300px;
+  max-width: 350px;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-styled: none;
+  scrollbar-width: none;
+`;
 
 const Search = styled.div`
   display: flex;
