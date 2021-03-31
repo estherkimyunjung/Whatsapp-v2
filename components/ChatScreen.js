@@ -86,7 +86,12 @@ function ChatScreen({ chat, messages }) {
 
         <HeaderInformation>
           <h3>{recipientEmail}</h3>
-          <p>Last seen...</p>
+          {recipientSnapshop ? (
+            <p>Last active...
+              recipient?.lastSeen?.toDate().getTime(),
+            </p>
+          )}
+          
         </HeaderInformation>
 
         <HeaderIcons>
