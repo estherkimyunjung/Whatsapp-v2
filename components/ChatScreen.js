@@ -12,6 +12,7 @@ import MicIcon from "@material-ui/icons/Mic";
 import { useState } from "react";
 import firebase from "firebase";
 import getRecipientEmail from "../utils/getRecipientEmail";
+import Timeago from "timeago-react";
 
 function ChatScreen({ chat, messages }) {
   console.log("te", chat, messages);
@@ -87,11 +88,17 @@ function ChatScreen({ chat, messages }) {
         <HeaderInformation>
           <h3>{recipientEmail}</h3>
           {recipientSnapshop ? (
-            <p>Last active...
-              recipient?.lastSeen?.toDate().getTime(),
+            <p>
+              Last active...
+              {recipient?.lastSeen?.toDate() ? (
+                <Timeago datetime={recipient?.lastSeen?.toDate()} />
+              ) : (
+                "Unavailable"
+              )}
             </p>
+          ) : (
+            <p>Loading Last active...</p>
           )}
-          
         </HeaderInformation>
 
         <HeaderIcons>
