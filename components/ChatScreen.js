@@ -9,7 +9,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import Message from "../components/Message";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import firebase from "firebase";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import Timeago from "timeago-react";
@@ -19,6 +19,8 @@ function ChatScreen({ chat, messages }) {
   const [user] = useAuthState(auth);
   const [input, setInput] = useState("");
   const router = useRouter();
+  const endOfMessageRef = useRef(null);
+
   const [messagesSnapshot] = useCollection(
     db
       .collection("chats")
@@ -52,6 +54,13 @@ function ChatScreen({ chat, messages }) {
     }
   };
 
+  const scrollToBottom = () => {
+    endOfMessageRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -71,6 +80,7 @@ function ChatScreen({ chat, messages }) {
     });
 
     setInput("");
+    scrollToBottom();
   };
 
   const recipient = recipientSnapshop?.docs?.[0]?.data();
@@ -113,7 +123,7 @@ function ChatScreen({ chat, messages }) {
       <MesssageContainer>
         {/* show messages */}
         {showMessage()}
-        <EndOfMessage />
+        <EndOfMessage ref={endOfMessageRef} />
       </MesssageContainer>
       <InputContainer>
         <InsertEmoticonIcon />
@@ -186,4 +196,6 @@ const MesssageContainer = styled.div`
   background-color: #e5ded8;
   min-height: 90vh;
 `;
-const EndOfMessage = styled.div``;
+const EndOfMessage = styled.div`
+  margin-bottom: 50px;
+`;
